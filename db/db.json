@@ -1,15 +1,10 @@
 {
-  "example": [
+  "movies": [
     {
       "id": 1,
-      "exampleAttributeString": "This is just an example. Please supply your own data.",
-      "exampleImgString": "https://placehold.co/150x150.jpg",
-      "exampleAttributesArray": ["Replace", "this", "data"],
-      "exampleAttributeNumber": 2341,
-      "exampleAttributeObj": {
-        "objectKey": "objectValue"
-      },
-      "exampleAttributeBoolean": false
+      "iMDbID": "tt1285016",
+      "liked": true,
+      "top250": true
     },
     {
       "id": 2,

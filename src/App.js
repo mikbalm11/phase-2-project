@@ -1,14 +1,18 @@
 import React, {useState, useEffect} from'react';
 import logo from './logo.svg';
 import './App.css';
+import { API_KEY } from './apikey';
+
+const API_URL = "https://www.omdbapi.com/?i=tt0071562&plot=full&apikey="
 
 function App() {
-  const [movie, setMovies] = useState();
+  const [movie, setMovie] = useState();
 
   useEffect(() => {
-    fetch('https://www.omdbapi.com/?t=batman_begins&apikey=8ac30d6e')
+    fetch(API_URL + API_KEY)
      .then(response => response.json())
-     .then(data => setMovies(data));
+     .then(data => setMovie(data))
+     .catch(error => console.error('Error:', error));
   }, []);
 
   console.log(movie.Title);

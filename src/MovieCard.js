@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import {
+    Button,
+    CardMeta,
+    CardHeader,
+    CardDescription,
+    CardContent,
+    Card,
+    Icon,
+    Image,
+    Flag,
+    Segment
+  } from "semantic-ui-react";
 import { API_KEY } from './apikey';
 
 const API_URL = "https://www.omdbapi.com/?&plot=full&apikey="
 
 function MovieCard({ movie }) {
     const [movieItem, setMovieItem] = useState("");
+    const [showDescription, setShowDescription] = useState(false);
 
     useEffect(() => {
         fetch(API_URL + API_KEY + "&i=" + movie.iMDbID)
@@ -13,12 +26,21 @@ function MovieCard({ movie }) {
             .catch(error => console.error('Error:', error));
     }, []);
 
+
+    if (!movieItem) return <p>Loading...</p>;
+
     return (
-        <div>
-            <h1>{movieItem.Title}</h1>
-            <p>{movieItem.Year}</p>
-            <img src={movieItem.Poster} alt={movieItem.Title} />
-        </div>
+        <Card>
+            <Image src={movieItem.Poster} wrapped ui={false} />
+            <CardHeader>{movieItem.Title}</CardHeader>
+            <CardMeta>{movieItem.Year}</CardMeta>
+            <Segment>
+                {/* {<Flag name={movieItem.Country} />} */}
+                {movieItem.Country.split(",").map((country) => <Flag name={country.toLowerCase().trim()} />)}
+            </Segment>
+            <Button onClick={() => setShowDescription(!showDescription)}>Show Description</Button>
+            {showDescription ? <CardDescription>{movieItem.Plot}</CardDescription> : null}
+        </Card>
     );
 }
 

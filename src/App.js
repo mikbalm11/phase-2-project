@@ -6,20 +6,30 @@ import { API_KEY } from './apikey';
 const API_URL = "https://www.omdbapi.com/?&plot=full&apikey="
 
 function App() {
-  const [movie, setMovie] = useState();
-
-  const example = "&i=tt0071562"
+  const [movieItem, setMovieItem] = useState("tt0043338");
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetch(API_URL + API_KEY + example)
-      .then(response => response.json())
-      .then(data => setMovie(data))
-      .catch(error => console.error('Error:', error));
+    fetch("http://localhost:3001/movies")
+    .then(response => response.json())
+    .then(data => setMovies(data))
+    .catch(error => console.error('Error:', error));
   }, []);
+  
+  //console.log(movies);
 
-  if (!movie) return <p>Movie Loading...</p>;
+  useEffect(() => {
+    movies.forEach(async (movie) => {
+      console.log(movie.iMDbID);
+      fetch(API_URL + API_KEY + "&i=" + movie.iMDbID)
+      .then(response => response.json())
+      .then(async data => setMovieItem(data))
+      .catch(error => console.error('Error:', error));
+    })}, []);
 
-  console.log(movie.Title);
+  if (!movieItem) return <p>Movie Loading...</p>;
+
+  console.log(movieItem.Title);
 
   return (
     <div className="App">

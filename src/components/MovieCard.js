@@ -15,7 +15,7 @@ import { API_KEY } from '../apikey';
 
 const API_URL = "https://www.omdbapi.com/?&plot=short&apikey="
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, searchTerm }) {
     const [movieItem, setMovieItem] = useState("");
     const [showDescription, setShowDescription] = useState(false);
 
@@ -24,33 +24,41 @@ function MovieCard({ movie }) {
             .then(response => response.json())
             .then(data => setMovieItem(data))
             .catch(error => console.error('Error:', error));
-    }, []);
-
+    }, [movie.iMDbID]);
 
     if (!movieItem) return <p>Loading...</p>;
 
+    const { Actors, Director, Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movieItem;
+
+    if (!Title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        !Plot.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        !Actors.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        !Director.toLowerCase().includes(searchTerm.toLowerCase())) {
+        return null; // Don't render this movie if it doesn't match the search term
+    }
+
     return (
         <Card>
-            <Image src={movieItem.Poster} wrapped ui={false} />
+            <Image src={Poster} wrapped ui={false} />
             <CardContent>
-                <CardHeader>{movieItem.Title}</CardHeader>
+                <CardHeader>{Title}</CardHeader>
                 <CardMeta><Icon name='calendar alternate' />
-                {movieItem.Released}</CardMeta>
+                    {Released}</CardMeta>
                 <Segment>
-                    {movieItem.Country.split(",").map((country) => <Flag name={country.toLowerCase().trim()} />)}
+                    {Country.split(",").map((country) => <Flag name={country.toLowerCase().trim()} />)}
                 </Segment>
                 <Button onClick={() => setShowDescription(!showDescription)}>Show Description</Button>
-                {showDescription ? <CardDescription textAlign='center'>{movieItem.Plot}</CardDescription> : null}
+                {showDescription ? <CardDescription textAlign='center'>{Plot}</CardDescription> : null}
             </CardContent>
             <CardContent extra>
                 <a>
                     <Icon name='user' />
-                    {movieItem.imdbVotes}
+                    {imdbVotes}
                 </a>
                 <br />
                 <a>
                     <Icon name='imdb' />
-                    {movieItem.imdbRating}
+                    {imdbRating}
                 </a>
             </CardContent>
         </Card>

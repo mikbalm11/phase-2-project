@@ -4,10 +4,7 @@ function Header() {
   return (
     <header>
       <h1>
-        MovieDB
-        <span className="logo" role="img">
-        ⚡️
-        </span>
+        MovieDB ⚡️
       </h1>
     </header>
   );

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import MovieCollection from './MovieCollection';
+import MoviePage from './MoviePage';
 import Header from './Header';
+import Search from './Search';
+import { Divider } from'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 function App() {
-  const [movieItem, setMovieItem] = useState("tt0043338");
   const [movies, setMovies] = useState([]);
   const [itemNumber, setItemNumber] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3001/movies")
@@ -17,8 +19,10 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <button onClick={() => setItemNumber((prevState) => (prevState + 1))}>NEXT</button>
-      <MovieCollection movies={movies} />
+      <Search search={searchTerm} onChangeSearch={setSearchTerm} />
+      {/* <button onClick={() => setItemNumber((prevState) => (prevState + 1))}>NEXT</button> */}
+      <Divider horizontal> Movies </Divider>
+      <MoviePage movies={movies} />
     </div>
   );
 }

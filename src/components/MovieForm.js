@@ -1,33 +1,52 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from './Header';
+import { API_KEY } from '../apikey';
 
-function MovieForm({ onAddMovie, movieID }) {
+const API_URL = "https://www.omdbapi.com/?&plot=short&apikey="
+
+function MovieForm() {
     const [iMDbID, setiMDbID] = useState('');
+    const [movie, setMovie] = useState('');
+
+    useEffect(() => {
+        fetch(API_URL + API_KEY + "&i=" + iMDbID)
+            .then(response => response.json())
+            .then(data => setMovie(data))
+            .catch(error => console.error('Error:', error));
+    }, [iMDbID]);
 
     function handleSubmit(event) {
         event.preventDefault();
         if (iMDbID) {
-            const movie = {
-                id: movieID,
-                iMDbID: iMDbID,
-                liked: false,
-                top250: false,
-            };
-            onAddMovie(movie);
+            //onAddMovie(movie);
             setiMDbID('');
-            //console.log('Movie added:', movie);
+            fetch("http://localhost:3001/movies", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(movie)
+              })
+                .then((response) => response.json())
+                .then((data) => setMovie(movie))
+                .catch((error) => console.error("Error:", error));
+            console.log('Movie added:', movie);
         } else {
             alert('Please fill in all fields');
         }
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="field">
-                <label>iMDb ID:</label>
-                <input type="text" value={iMDbID} onChange={(e) => setiMDbID(e.target.value)} />
-                <button type="submit">Add Movie</button>
+        <div>
+            <Header />
+            <form onSubmit={handleSubmit}>
+                <div className="field">
+                    <label>iMDb ID:</label>
+                    <input type="text" value={iMDbID} onChange={(e) => setiMDbID(e.target.value)} />
+                    <button type="submit">Add Movie</button>
                 </div>
-        </form>
+            </form>
+        </div>
     )
 }
 

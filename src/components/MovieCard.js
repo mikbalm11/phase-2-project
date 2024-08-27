@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import {Link} from "react-router-dom";
+
 import {
     Button,
     CardMeta,
@@ -11,24 +13,10 @@ import {
     Flag,
     Segment
 } from "semantic-ui-react";
-import { API_KEY } from '../apikey';
-
-const API_URL = "https://www.omdbapi.com/?&plot=short&apikey="
 
 function MovieCard({ movie, searchTerm }) {
-    const [movieItem, setMovieItem] = useState("");
     const [showDescription, setShowDescription] = useState(false);
-
-    useEffect(() => {
-        fetch(API_URL + API_KEY + "&i=" + movie.iMDbID)
-            .then(response => response.json())
-            .then(data => setMovieItem(data))
-            .catch(error => console.error('Error:', error));
-    }, [movie.iMDbID]);
-
-    if (!movieItem) return <p>Loading...</p>;
-
-    const { Actors, Director, Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movieItem;
+    const { Actors, Director, Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movie;
 
     if (!Title.toLowerCase().includes(searchTerm.toLowerCase()) &&
         !Plot.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -40,6 +28,7 @@ function MovieCard({ movie, searchTerm }) {
     return (
         <Card>
             <Image src={Poster} wrapped ui={false} />
+            <Link to={`/movies/${movie.id}`}>View movie page</Link>
             <CardContent>
                 <CardHeader>{Title}</CardHeader>
                 <CardMeta><Icon name='calendar alternate' />

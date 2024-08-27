@@ -1,4 +1,5 @@
 import React from "react";
+import NavBar from "./NavBar";
 
 function Header() {
   return (
@@ -6,6 +7,7 @@ function Header() {
       <h1>
         MovieDB ⚡️
       </h1>
+      <NavBar />
     </header>
   );
 }

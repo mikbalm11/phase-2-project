@@ -4,7 +4,7 @@ import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import MovieCardPage from './pages/MovieCardPage';
 import MovieForm from './components/MovieForm';
-import MoviePage from './components/MoviePage';
+import MoviePage from './pages/MoviePage';
 
 const routes = [
     {

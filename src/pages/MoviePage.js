@@ -1,5 +1,5 @@
 import React from "react";
-import MovieCollection from "./MovieCollection";
+import MovieCollection from "../components/MovieCollection";
 import { Container, Divider } from 'semantic-ui-react';
 import { Outlet, useOutletContext } from 'react-router-dom';
 

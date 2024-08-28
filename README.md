@@ -1,13 +1,12 @@
 # MovieDB ⚡️
 
-This is a movie database web application built with React, inspired by IMDb. The application allows users to search for movies, view details, and navigate between different movie categories.
+MovieDB is a web application built with React that provides a comprehensive movie database inspired by IMDb. It allows users to search for movies, view detailed information, and explore various movie categories.
 
 ## Features
 
 - **Movie Search**: Search for movies by title, description, actor, or director.
-- **Movie Categories**: View movies categorized into "All", "Best", and "Random".
 - **Individual Movie Pages**: View detailed information for each movie.
-- **Add Movies**: Add new movies to the database using IMDb ID.
+- **Add Movies**: Add new movies to the database using IMDb IDs.
 - **Error Handling**: Custom error page for handling unexpected errors.
 
 ## Technologies Used
@@ -29,28 +28,37 @@ This is a movie database web application built with React, inspired by IMDb. The
 2. Install dependencies:
     ```bash
     npm install
+    npm install semantic-ui-react semantic-ui-css
+    npm install react-router-dom@6
     ```
 
-3. Start the development server:
-    ```bash
-    npm start
-    ```
-
-4. Start the JSON server for a mock backend:
+3. Start the JSON server for a mock backend, you will need to use port 3001:
     ```bash
     npx json-server --watch db.json --port 3001
     ```
 
+4. Start the development server:
+    ```bash
+    npm start
+    ```
+
+5. You will need to generate a new file called apikey.js with the following line, you will need to replace the string with your own key
+    ```bash
+    export const API_KEY = 'YOUR_KEY_HERE';
+    ```
+
 ## Usage
 
-- **Home Page**: Displays all movies, with tabs to switch between categories.
-- **Search Bar**: Enter a keyword to search for movies.
-- **Movie Cards**: Click on a movie card to view more details.
-- **Add Movie**: Navigate to the "Add" page to add a new movie using its IMDb ID.
+- **Home Page**: Features a welcome message and a button to retrieve 4 random movies.
+- **Movies Page**: Displays a list of all movies in the database with search functionality. You can also view detailed information for individual movies by clicking on movie cards.
+- **Movie Card Pages**: Click on a movie card to view detailed information about the selected movie.
+- **Add Movie**: Navigate to the "Add" page to add new movies using their IMDb IDs. This page retrieves and displays movie details from the OMDb API.
+- **About Page**: Provides information about the project and its purpose.
 
 ## Project Structure
 
-- `src/components`: Contains all the React components used in the application.
+- `src/components`: Contains React components used throughout the application.
+- `src/pages`: Contains the pages displayed via the navigation bar.
 - `src/index.css`: Contains custom CSS for styling the application.
 - `src/index.js`: Entry point for the React application.
 - `db.json`: Mock database file used by JSON Server.

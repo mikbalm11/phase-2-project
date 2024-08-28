@@ -1,11 +1,26 @@
 import React from "react";
 import MovieCollection from "./MovieCollection";
-import { Container } from "semantic-ui-react";
+import { Container, Divider } from 'semantic-ui-react';
+import { Outlet, useOutletContext } from 'react-router-dom';
 
-function MoviePage({ movies, searchTerm }) {
+function MoviePage() {
+  const { movies, searchTerm, setSearchTerm } = useOutletContext();
+
+  function handleSearch(event) {
+    setSearchTerm(event.target.value);
+  }
+
   return (
     <Container>
-      <MovieCollection movies={movies} searchTerm={searchTerm} />
+      <div className="ui search">
+        <div className="ui icon input">
+          <input className="prompt" placeholder="Search..." value={searchTerm} onChange={handleSearch} />
+          <i className="search icon" />
+        </div>
+      </div>
+      <Divider horizontal> All Movies </Divider>
+      <MovieCollection />
+      <Outlet context={{ movies, searchTerm }} />
     </Container>
   );
 }

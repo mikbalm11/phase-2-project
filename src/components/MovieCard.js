@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import {
     Button,
     CardMeta,
@@ -22,7 +21,7 @@ function MovieCard({ movie, searchTerm }) {
         !Plot.toLowerCase().includes(searchTerm.toLowerCase()) &&
         !Actors.toLowerCase().includes(searchTerm.toLowerCase()) &&
         !Director.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return null; // Don't render this movie if it doesn't match the search term
+        return null;
     }
 
     return (

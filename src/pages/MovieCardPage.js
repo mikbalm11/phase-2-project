@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/Header';
-import { useParams } from "react-router-dom";
-
+import React, { useState } from 'react';
+import { useParams, useOutletContext } from "react-router-dom";
 import {
     Button,
     CardMeta,
@@ -18,30 +16,16 @@ import {
 
 function MovieCardPage() {
     const [showDescription, setShowDescription] = useState(false);
-    const [movieItem, setMovieItem] = useState({});
     const params = useParams();
+    const allMovies = useOutletContext();
     const movieId = params.id;
 
-    useEffect(() => {
-        fetch(`http://localhost:3001/movies/${movieId}`)
-            .then(r => r.json())
-            .then(data => setMovieItem(data))
-            .catch(error => console.error(error));
-    }, [movieId]);
-
-    if (!movieItem.Title) {
-        return (<div>
-            <Header />
-            <h1>We're sorry, we could not find this movie!</h1>
-        </div>
-        );
-    }
+    const movieItem = allMovies.movies.find(movie => movie.id === movieId);
 
     const { Actors, Director, Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movieItem;
 
     return (
         <div>
-            <Header />
             <Container>
                 <Card>
                     <Image src={Poster} wrapped ui={false} />

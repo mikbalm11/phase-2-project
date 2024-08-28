@@ -17,10 +17,11 @@ import './index.css';
  *      ├── Search.js
  *  └── pages/
  *      ├── About.js
- *      ├── App.js
  *      ├── ErrorPage.js
+ *      ├── Home.js
  *      ├── MovieCardPage.js
  *  ├── apikey.js
+ *  ├── App.js
  *  ├── index.css
  *  ├── index.js
  *  ├── routes.js
@@ -30,8 +31,4 @@ const router = createBrowserRouter(routes);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+root.render(<RouterProvider router={router} />);

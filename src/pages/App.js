@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MoviePage from './MoviePage';
-import Header from './Header';
-import Search from './Search';
+import MoviePage from '../components/MoviePage';
+import Header from '../components/Header';
+import Search from '../components/Search';
 import { Divider, TabPane, Tab } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css'
 

@@ -5,7 +5,7 @@ function NavBar() {
         <nav>
 
             <NavLink
-                to="/home"
+                to="/"
                 className="nav-link"
             >
                 Home

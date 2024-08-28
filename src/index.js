@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import routes from "./routes.js";
 import './index.css';
 
-
 /**
  *  src/
  *  ├── components/
@@ -12,7 +11,6 @@ import './index.css';
  *      ├── MovieCard.js
  *      ├── MovieCollection.js
  *      ├── MovieForm.js
- *      ├── MoviePage.js
  *      ├── NavBar.js
  *      ├── Search.js
  *  └── pages/
@@ -20,6 +18,7 @@ import './index.css';
  *      ├── ErrorPage.js
  *      ├── Home.js
  *      ├── MovieCardPage.js
+ *      ├── MoviePage.js
  *  ├── apikey.js
  *  ├── App.js
  *  ├── index.css

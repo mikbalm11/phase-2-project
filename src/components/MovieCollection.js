@@ -5,7 +5,16 @@ import { useOutletContext } from 'react-router-dom';
 
 function MovieCollection() {
     const { movies, searchTerm, } = useOutletContext();
-    const allMovies = movies.map(movie => (<MovieCard key={movie.id} movie={movie} searchTerm={searchTerm} />));
+
+    const displayedMovies = movies.filter(movie => {
+        return movie.Title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            movie.Plot.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            movie.Actors.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            movie.Director.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const allMovies = displayedMovies.map(movie => (<MovieCard key={movie.id} movie={movie} />));
+
     return (
         <Card.Group itemsPerRow={4}>
             {allMovies}

@@ -13,16 +13,9 @@ import {
     Segment
 } from "semantic-ui-react";
 
-function MovieCard({ movie, searchTerm }) {
+function MovieCard({ movie }) {
     const [showDescription, setShowDescription] = useState(false);
-    const { Actors, Director, Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movie;
-
-    if (!Title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !Plot.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !Actors.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        !Director.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return null;
-    }
+    const { Title, Plot, Poster, Released, Country, imdbVotes, imdbRating } = movie;
 
     return (
         <Card>
@@ -30,10 +23,22 @@ function MovieCard({ movie, searchTerm }) {
             <Link to={`/movies/${movie.id}`}>View movie page</Link>
             <CardContent>
                 <CardHeader>{Title}</CardHeader>
-                <CardMeta><Icon name='calendar alternate' />
-                    {Released}</CardMeta>
+                <CardMeta>
+                    <Icon name='calendar alternate' />
+                    {Released}
+                </CardMeta>
                 <Segment>
-                    {Country.split(",").map((country) => <Flag name={country.toLowerCase().trim()} />)}
+                    {Country.split(",").map((country) => {
+                        if (country.toLowerCase().trim() === "west germany") {
+                            return <Flag key={country} name='germany' />;
+                        } if (country.toLowerCase().trim() === "soviet union") {
+                            return <Flag key={country} name='russia' />;
+                        } if (country.toLowerCase().trim() === "yugoslavia") {
+                            return <Flag key={country} name='serbia' />;
+                        }
+                        return <Flag key={country} name={country.toLowerCase().trim()
+                        } />
+                    })}
                 </Segment>
                 <Button onClick={() => setShowDescription(!showDescription)}>Show Description</Button>
                 {showDescription ? <CardDescription textAlign='center'>{Plot}</CardDescription> : null}
